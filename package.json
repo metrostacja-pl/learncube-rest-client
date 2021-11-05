@@ -15,6 +15,9 @@
     "lint:ts:fix": "eslint --fix --ext tsx --ext ts .",
     "test": "jest --verbose"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "Krzysztof Bukowski <krzysztof.bukowski@metrostacja.pl>",
   "license": "ISC",
