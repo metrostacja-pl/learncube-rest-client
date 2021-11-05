@@ -1,3 +1,15 @@
+# v0.1.2 (Fri Nov 05 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Publish to github registry (ja@krzysztofbukowski.pl)
+
+#### Authors: 1
+
+- Krzysztof Bukowski (ja@krzysztofbukowski.pl)
+
+---
+
 # v0.1.1 (Fri Nov 05 2021)
 
 #### ⚠️ Pushed to `master`
