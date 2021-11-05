@@ -13,7 +13,8 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "lint:ts": "eslint --ext tsx --ext ts .",
     "lint:ts:fix": "eslint --fix --ext tsx --ext ts .",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "test:watch": "jest --watch"
   },
   "files": [
     "dist"

@@ -4,7 +4,7 @@ import { create, list, read, update, del } from './classrooms';
 jest.mock('node-fetch');
 
 beforeEach(() => {
-  ((fetch as unknown) as jest.Mock).mockReset();
+  ((fetch as unknown) as jest.Mock).mockClear();
 });
 
 describe('classrooms', () => {
@@ -121,6 +121,7 @@ describe('classrooms', () => {
   it('del sends delete request and returns undefined', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
       status: 204,
+      json: jest.fn().mockResolvedValue(undefined),
     });
 
     const response = await del('uuid-12345', 'api-token');
@@ -135,6 +136,7 @@ describe('classrooms', () => {
     );
     expect(response).toMatchInlineSnapshot(`
       Object {
+        "body": undefined,
         "status": 204,
       }
     `);
