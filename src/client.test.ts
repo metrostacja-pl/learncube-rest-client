@@ -36,10 +36,12 @@ describe('client', () => {
   it('get should send a request with query params', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
       status: 200,
-      json: jest.fn(),
+      json: jest.fn().mockResolvedValue({
+        someData: 10,
+      }),
     });
 
-    await get('https://api.learncube.com/virtual-classroom/', {
+    const response = await get('https://api.learncube.com/virtual-classroom/', {
       page: '1',
       limit: '10',
     });
@@ -50,18 +52,32 @@ describe('client', () => {
         body: undefined,
       }),
     );
+
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {
+          "someData": 10,
+        },
+        "status": 200,
+      }
+    `);
   });
 
   it('post should send a request with body params', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
       status: 200,
-      json: jest.fn(),
+      json: jest.fn().mockResolvedValue({
+        someData: 10,
+      }),
     });
     const params = {
       page: '1',
       limit: '10',
     };
-    await post('https://api.learncube.com/virtual-classroom/', params);
+    const response = await post(
+      'https://api.learncube.com/virtual-classroom/',
+      params,
+    );
 
     expect(fetch).toHaveBeenCalledWith(
       'https://api.learncube.com/virtual-classroom/',
@@ -70,6 +86,15 @@ describe('client', () => {
         body: JSON.stringify(params),
       }),
     );
+
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {
+          "someData": 10,
+        },
+        "status": 200,
+      }
+    `);
   });
 
   it('put should send a request with body params', async () => {
@@ -81,7 +106,10 @@ describe('client', () => {
       page: '1',
       limit: '10',
     };
-    await put('https://api.learncube.com/virtual-classroom/', params);
+    const response = await put(
+      'https://api.learncube.com/virtual-classroom/',
+      params,
+    );
 
     expect(fetch).toHaveBeenCalledWith(
       'https://api.learncube.com/virtual-classroom/',
@@ -90,6 +118,13 @@ describe('client', () => {
         body: JSON.stringify(params),
       }),
     );
+
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": undefined,
+        "status": 200,
+      }
+    `);
   });
 
   it('delete should send a request with body params', async () => {
@@ -111,6 +146,11 @@ describe('client', () => {
       }),
     );
 
-    expect(response).toBeUndefined();
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": undefined,
+        "status": 204,
+      }
+    `);
   });
 });

@@ -1,4 +1,4 @@
-import { post } from './client';
+import { ClientResponse, post } from './client';
 import { AUTHENTICATION_ENDPOINT } from './endpoints';
 
 export type GetApiTokenParams = {
@@ -13,7 +13,7 @@ export type GetApiTokenResponse = {
 export async function getApiToken(
   publicKey: string,
   privateKey: string,
-): Promise<GetApiTokenResponse> {
+): Promise<ClientResponse<GetApiTokenResponse>> {
   const body = JSON.stringify({
     api_public_key: publicKey,
     api_private_key: privateKey,

@@ -9,7 +9,7 @@ beforeEach(() => {
 
 describe('authentication', () => {
   describe('get-api-token', () => {
-    it('Makes a request and returns token response', async () => {
+    it('Makes a request and returns client response', async () => {
       ((fetch as unknown) as jest.Mock).mockResolvedValue({
         status: 200,
         json: jest.fn().mockResolvedValue({
@@ -20,10 +20,13 @@ describe('authentication', () => {
       const result = await getApiToken('public-key', 'private-key');
 
       expect(result).toMatchInlineSnapshot(`
-Object {
-  "token": "random-token",
-}
-`);
+        Object {
+          "body": Object {
+            "token": "random-token",
+          },
+          "status": 200,
+        }
+      `);
 
       expect(fetch).toHaveBeenCalledWith(
         expect.stringContaining(

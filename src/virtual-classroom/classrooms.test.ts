@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { StatusCodes } from 'http-status-codes';
 import { create, list, read, update, del } from './classrooms';
 jest.mock('node-fetch');
 
@@ -9,7 +10,7 @@ beforeEach(() => {
 describe('classrooms', () => {
   it('list sends get request', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
-      status: 200,
+      status: StatusCodes.OK,
       json: jest.fn().mockResolvedValue({}),
     });
 
@@ -29,12 +30,17 @@ describe('classrooms', () => {
         headers: expect.any(Object),
       }),
     );
-    expect(response).toMatchInlineSnapshot(`Object {}`);
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {},
+        "status": 200,
+      }
+    `);
   });
 
   it('create sends post request', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
-      status: 200,
+      status: StatusCodes.CREATED,
       json: jest.fn().mockResolvedValue({}),
     });
 
@@ -52,7 +58,12 @@ describe('classrooms', () => {
         headers: expect.any(Object),
       }),
     );
-    expect(response).toMatchInlineSnapshot(`Object {}`);
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {},
+        "status": 201,
+      }
+    `);
   });
 
   it('read sends get request', async () => {
@@ -71,12 +82,17 @@ describe('classrooms', () => {
         headers: expect.any(Object),
       }),
     );
-    expect(response).toMatchInlineSnapshot(`Object {}`);
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {},
+        "status": 200,
+      }
+    `);
   });
 
   it('update sends put request', async () => {
     ((fetch as unknown) as jest.Mock).mockResolvedValue({
-      status: 200,
+      status: StatusCodes.ACCEPTED,
       json: jest.fn().mockResolvedValue({}),
     });
 
@@ -94,7 +110,12 @@ describe('classrooms', () => {
         headers: expect.any(Object),
       }),
     );
-    expect(response).toMatchInlineSnapshot(`Object {}`);
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "body": Object {},
+        "status": 202,
+      }
+    `);
   });
 
   it('del sends delete request and returns undefined', async () => {
@@ -112,6 +133,10 @@ describe('classrooms', () => {
         headers: expect.any(Object),
       }),
     );
-    expect(response).toBeUndefined();
+    expect(response).toMatchInlineSnapshot(`
+      Object {
+        "status": 204,
+      }
+    `);
   });
 });

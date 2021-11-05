@@ -1,5 +1,7 @@
 import * as client from '../client';
+import { ClientResponse } from '../client';
 import { VIRTUAL_CLASSROOM_ENDPOINT } from '../endpoints';
+import { ListResponse } from './common';
 
 export interface Classroom {
   uuid: string;
@@ -27,13 +29,6 @@ export interface Classroom {
   room_review_url: string;
   recorded_class_url: string;
   slug: string;
-}
-
-export interface ListResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Array<T>;
 }
 
 export type ClassroomListResponse = ListResponse<Classroom>;
@@ -81,30 +76,22 @@ export type ClassroomDeleteResponse = undefined;
 export async function list(
   params: ClassroomListRequestParams,
   token: string,
-): Promise<ClassroomListResponse> {
-  return client.get<ClassroomListRequestParams, ClassroomListResponse>(
-    `${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms`,
-    params,
-    token,
-  );
+): Promise<ClientResponse<ClassroomListResponse>> {
+  return client.get(`${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms`, params, token);
 }
 
 export async function create(
   params: ClassroomCreateRequestParams,
   token: string,
-): Promise<ClassroomCreateResponse> {
-  return client.post<ClassroomCreateRequestParams, ClassroomCreateResponse>(
-    `${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms`,
-    params,
-    token,
-  );
+): Promise<ClientResponse<ClassroomCreateResponse>> {
+  return client.post(`${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms`, params, token);
 }
 
 export async function read(
   uuid: string,
   token: string,
-): Promise<ClassroomReadResponse> {
-  return client.get<undefined, ClassroomReadResponse>(
+): Promise<ClientResponse<ClassroomReadResponse>> {
+  return client.get(
     `${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms/${uuid}`,
     undefined,
     token,
@@ -115,8 +102,8 @@ export async function update(
   uuid: string,
   params: ClassroomCreateRequestParams,
   token: string,
-): Promise<ClassroomUpdateResponse> {
-  return client.put<ClassroomCreateRequestParams, ClassroomUpdateResponse>(
+): Promise<ClientResponse<ClassroomUpdateResponse>> {
+  return client.put(
     `${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms/${uuid}`,
     params,
     token,
@@ -126,8 +113,8 @@ export async function update(
 export async function del(
   uuid: string,
   token: string,
-): Promise<ClassroomDeleteResponse> {
-  return client.del<undefined, ClassroomDeleteResponse>(
+): Promise<ClientResponse<ClassroomDeleteResponse>> {
+  return client.del(
     `${VIRTUAL_CLASSROOM_ENDPOINT}/classrooms/${uuid}`,
     undefined,
     token,
