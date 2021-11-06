@@ -4,7 +4,7 @@ import { getApiToken, GetApiTokenResponse } from './authentication';
 jest.mock('node-fetch');
 
 beforeEach(() => {
-  ((fetch as unknown) as jest.Mock).mockReset();
+  ((fetch as unknown) as jest.Mock).mockClear();
 });
 
 describe('authentication', () => {

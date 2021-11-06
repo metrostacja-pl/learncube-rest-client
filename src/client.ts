@@ -29,7 +29,7 @@ export type ClientResponse<T> =
     }
   | {
       status: 400;
-      body: BadRequestErrorResponse<T>;
+      body: BadRequestErrorResponse<{ [key: string]: string }>;
     }
   | {
       status: 404;
@@ -50,7 +50,7 @@ export async function createClientResponse<T>(
       body: (await response.json()) as T,
     });
   } catch (e) {
-    console.log(e);
+    console.info(e);
     return Promise.resolve({
       status: status as 204 | 405 | 500,
     });
